@@ -1,3 +1,5 @@
+# Work in progress
+
 # Astro Starter Kit: Basics
 
 ```sh
