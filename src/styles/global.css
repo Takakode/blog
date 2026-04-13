@@ -1,0 +1,193 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0d1117;
+    color: #33ff33;
+    font-family: "Courier New", Courier, "Lucida Console", monospace;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Subtle scanline overlay for CRT feel */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.07) 2px,
+        rgba(0, 0, 0, 0.07) 4px
+    );
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* ── Navigator ─────────────────────────────────────────────── */
+
+#navigator {
+    padding: 10px 16px;
+    border-bottom: 1px solid #1a4d1a;
+    display: flex;
+    gap: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* ── Links ─────────────────────────────────────────────────── */
+
+a {
+    color: #33ff33;
+    text-decoration: none;
+    position: relative;
+    text-shadow: 0 0 6px rgba(51, 255, 51, 0.5);
+}
+
+a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0%;
+    height: 1px;
+    background: #33ff33;
+    transition: width 0.3s ease;
+}
+
+a:hover {
+    color: #66ff66;
+    text-shadow: 0 0 10px rgba(51, 255, 51, 0.8);
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+/* ── Headings ──────────────────────────────────────────────── */
+
+h1,
+h2,
+h3 {
+    text-shadow: 0 0 8px rgba(51, 255, 51, 0.6);
+    border-bottom: 1px solid #1a4d1a;
+    padding-bottom: 0.3rem;
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 1.4rem;
+    margin-top: 0.25em;
+}
+
+h2 {
+    font-size: 1.15rem;
+}
+
+/* ── Horizontal rule ───────────────────────────────────────── */
+
+hr {
+    border: none;
+    border-top: 1px solid #1a4d1a;
+    margin: 1.5rem 0;
+}
+
+/* ── Post / Markdown content ───────────────────────────────── */
+
+/* Markdown pages inject content directly into <slot> without a wrapping
+   component, so we target the slot's direct children inside <body>. */
+body > *:not(#navigator):not(#container) {
+    padding: 2rem 1.5rem;
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+/* ── Layout ────────────────────────────────────────────────── */
+
+#container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 41px); /* subtract nav height */
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    flex: 1;
+}
+
+#hero {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 500px;
+    flex: 1;
+    padding: 16px;
+    border: 1px solid #1a4d1a;
+    background: rgba(0, 20, 0, 0.3);
+}
+
+#news {
+    max-width: 300px;
+    flex: 0 0 300px;
+    padding: 16px;
+    border: 1px solid #1a4d1a;
+    background: rgba(0, 20, 0, 0.3);
+    transition: background 0.2s;
+}
+
+#news:hover {
+    background: rgba(0, 30, 0, 0.5);
+}
+
+#news ul {
+    padding-left: 1.2rem;
+    margin: 0.5rem 0 0;
+}
+
+#news li {
+    margin-bottom: 0.4rem;
+}
+
+#news li::marker {
+    color: #1a7a1a;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+
+@media screen and (max-width: 768px) {
+    main {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #hero {
+        max-width: 100%;
+    }
+
+    #news {
+        max-width: 100%;
+        flex: none;
+    }
+
+    h1 {
+        line-height: 1.5;
+    }
+}
+
+@media screen and (max-height: 368px) {
+    #news {
+        display: none;
+    }
+}
